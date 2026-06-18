@@ -31,7 +31,7 @@ acceptance criteria. Get sign-off before starting anything marked **[needs sign-
 - **Done when:** Pasting the URL into a chat/social preview shows a proper card.
 
 ### 4. Custom domain **[needs sign-off]**
-- Help Jeff buy/connect a domain (e.g. blakperlzcrystals.com) in Vercel settings.
+- Help Jeff buy/connect a domain (e.g. crystalatelier.com) in Vercel settings.
 - **Done when:** Site loads on the custom domain over HTTPS.
 
 ### 5. Lightweight inquiry upgrade (optional) **[needs sign-off]**

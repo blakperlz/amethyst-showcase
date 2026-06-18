@@ -1,4 +1,4 @@
-# CLAUDE.md — Blakperlz Crystals (Amethyst Showcase)
+# CLAUDE.md — Crystal Atelier (Amethyst Showcase)
 
 Instructions for Claude Code working in this repository. Read this first.
 

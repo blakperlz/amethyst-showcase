@@ -1,4 +1,4 @@
-# Blakperlz Crystals — Amethyst Showcase
+# Crystal Atelier — Amethyst Showcase
 
 A static, one-page showcase for your amethyst collection. No build tools, no server. Open `index.html` in any browser to view it.
 

@@ -1,6 +1,6 @@
-# Decisions Log — Blakperlz Crystals Showcase
+# Decisions Log — Crystal Atelier Showcase
 
-_Last updated: 2026-06-17_
+_Last updated: 2026-06-18_
 
 This file records what was decided, when, and why, per Jeff's working standards.
 
@@ -82,6 +82,21 @@ immediate public URL with no build step — same self-contained `index.html`.
 - Repo: `https://github.com/blakperlz/amethyst-showcase` (public).
 - The original GitHub→Vercel plan in `DEPLOY.md` still stands; Jeff connects Vercel
   to this same repo when ready (it's a dashboard step). Pages can be turned off then.
+
+## Brand rename: Blakperlz Crystals → Crystal Atelier (decided 2026-06-18)
+
+Jeff renamed the brand from "Blakperlz Crystals" to **Crystal Atelier**. Updated all
+visible brand text and docs.
+- **Site (`index.html`):** title, `og:`/`twitter:` card titles, header logo, intro
+  copy, Inquire/email button, footer brand + copyright — all now read "Crystal Atelier."
+- **Docs:** `CLAUDE.md`, `README.md`, `DECISIONS.md` headings, and the example custom
+  domain in `BUILD_PLAN.md` (`blakperlzcrystals.com` → `crystalatelier.com`).
+- **Deliberately left as `blakperlz`:** the GitHub account name, the
+  `blakperlz/amethyst-showcase` repo, and the `https://blakperlz.github.io/...` URLs in
+  the social-share meta tags. Those are live hosting infrastructure tied to the GitHub
+  account (which is not changing); rewriting them would break the deployed URL and the
+  social-card preview image. If Jeff later wants a matching domain/handle, that's a
+  separate task (buy `crystalatelier.com`, or rename the GitHub repo + re-point Pages).
 
 ## Reversibility note
 Nothing destructive was done locally. New this session: a public GitHub repo under
