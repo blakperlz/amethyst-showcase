@@ -5,48 +5,50 @@ A static, one-page showcase for your amethyst collection. No build tools, no ser
 ---
 
 ## 1. See it right now
-Double-click **`index.html`**. That's the whole site.
+- **Live online:** https://blakperlz.github.io/amethyst-showcase/
+- **Or locally:** double-click **`index.html`**. That's the whole site.
 
-## 2. Swap in your real photos
-The page uses placeholder images in the `images/` folder, named `amethyst-01.jpg` through `amethyst-08.jpg`.
+## 2. Edit your inventory (the easy way)
+Your inventory lives in one spreadsheet: **`inventory.csv`**.
 
-**Easiest way:** rename each of your photos to match (`amethyst-01.jpg`, etc.) and drop them into the `images/` folder, replacing the placeholders. No code changes needed.
+- **On your computer:** double-click it — it opens in Excel. Edit names, prices,
+  sizes, status; save.
+- **On any other device:** open `inventory.csv` on github.com and edit it right in
+  the browser (it shows as a table).
 
-**Or** keep your own filenames and update the `image:` line for each item (see next section). Use square-ish photos (~1000×1000) for the cleanest grid.
+Columns: `id, name, category, height_in, weight_lb, price, status, photo, description`.
+- **Price** — a number like `585` (blank = "inquire for price").
+- **Status** — `Available` or `Sold` (Sold shows a badge and disables Inquire).
+- **Category** — the filter chips build themselves from these values.
 
-## 3. Edit your inventory
-Open `index.html` in any text editor. Near the bottom, find the block that starts:
+After editing, the website catalog is regenerated from the CSV by running
+`python tools/sync_inventory.py` (ask Claude to do this) — then push to GitHub.
+The site itself stays one self-contained `index.html` with no build step.
 
-```js
-/* EDIT YOUR INVENTORY HERE */
-const PRODUCTS = [ ... ];
-```
+> Heads-up: the prices currently in the CSV are **draft estimates** — replace them
+> with your real numbers.
 
-Each `{ ... }` is one specimen. To:
-- **Change details** — edit `name`, `price`, `dims`, `desc`.
-- **Mark as sold** — set `sold: true` (shows a SOLD badge, disables Inquire).
-- **Hide a price** — set `price: ""`.
-- **Add a specimen** — copy a whole `{ ... }` block, paste it, edit it. The category filter chips build themselves automatically from the `category` values.
+## 3. Swap in your real photos
+Photos live in `images/`, named `amethyst-01.jpg` … `amethyst-06.jpg`. To replace
+one, drop a new file with the **same name** into `images/` (square-ish, ~1000×1000,
+under 300 KB). No code change needed. Or use a new filename and point the row's
+`photo` column at it.
 
-Your contact email is set in `CONTACT_EMAIL` just below the list.
+## 4. Online hosting
+The site is **already live on GitHub Pages** (URL above) — it redeploys on every
+push. If you later want Vercel (the original plan) or a custom domain, see
+`DEPLOY.md`; you connect Vercel to the same `blakperlz/amethyst-showcase` repo.
 
-## 4. Put it online with Vercel (free)
-1. Push this folder to your GitHub (`blakperlz`):
-   - Create a new repo, e.g. `crystals-site`.
-   - Upload these files (or `git push`).
-2. Go to **vercel.com** → sign in **with GitHub** → **Add New Project** → import `crystals-site`.
-3. Framework preset: **Other**. No build command needed. Click **Deploy**.
-4. You'll get a live URL in ~30 seconds (e.g. `crystals-site.vercel.app`). You can add a custom domain later in Vercel's settings.
-
-Every time you push changes to GitHub, Vercel redeploys automatically.
+Your contact email is set in `inventory.csv`-driven `index.html` (`CONTACT_EMAIL`).
 
 ---
 
 ## Files
-- `index.html` — the entire site (layout, styling, and your inventory list).
-- `images/` — specimen photos (placeholders for now).
+- `index.html` — the entire site (layout, styling, generated catalog).
+- `inventory.csv` — your editable inventory (source of truth).
+- `tools/sync_inventory.py` — regenerates the catalog in `index.html` from the CSV.
+- `images/` — specimen photos + `og-cover.jpg` (social share image).
 - `DECISIONS.md` — what was decided and why.
-- `images/gen.py` — script that made the placeholders; safe to delete.
 
 ## Next step when you're ready to actually sell
 This page is intentionally a showcase. When you want a real cart + checkout, the lowest-friction path is **Shopify** (what your reference sites use). The inventory list here can be exported into Shopify, so nothing is wasted.

@@ -5,6 +5,24 @@ Run the commands from inside this project folder.
 
 ---
 
+## ✅ CURRENT STATUS (2026-06-18) — already live on GitHub Pages
+The site is deployed now, for review, via **GitHub Pages** (no build step):
+- **Repo:** https://github.com/blakperlz/amethyst-showcase
+- **Live URL:** https://blakperlz.github.io/amethyst-showcase/
+  (first publish can take 1–2 minutes after enabling Pages)
+
+GitHub Pages was used because it needs no interactive Vercel login. The
+GitHub → Vercel path below is still the intended long-term home — connect Vercel
+to this same repo when ready (Step 2), then you can disable Pages if you like.
+
+### Updating inventory later
+1. Edit `inventory.csv` — in Excel locally, or directly on github.com (it's a
+   table you can edit in the browser). Add/replace photos in `images/`.
+2. Have Claude run `python tools/sync_inventory.py` (rewrites the catalog in
+   `index.html` from the CSV), then `git push`. Pages redeploys automatically.
+
+---
+
 ## Prerequisites (one time)
 - **Git** installed — check with `git --version`. If missing: https://git-scm.com/downloads
 - **GitHub account** — you have one: `blakperlz`.

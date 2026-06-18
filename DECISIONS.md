@@ -44,5 +44,48 @@ needs to execute against this repo:
 Deploy path chosen: **GitHub (`blakperlz`) → Vercel auto-deploy on push.** Static
 site, no build step, free tier. Custom domain deferred.
 
+## Real specimens, inventory system & first deploy (decided 2026-06-18)
+
+**Photos.** Jeff supplied 7 real photos (a zip + one loose file) plus a video.
+Processed 6 usable stills into `images/amethyst-01..06.jpg`: EXIF auto-orientation
+(three were rotated), square crop (top-biased for the tall pieces), resized to
+1200px, compressed <300 KB. The 7th file (`IMG_3444`) was an iPhone Measure
+screenshot — not usable as a product photo, but it confirmed one cathedral is
+~20.5″ tall. Raw originals / zip / `.MOV` are kept locally but git-ignored.
+- **Known gap:** four of the six (the pallet/garage shots) have cluttered
+  backgrounds and visible **red price-dot stickers + inventory labels**. They read
+  as supplier lot photos, not storefront shots. Swapping in cleaner photos later is
+  a drop-in replacement (same filenames). The two white-shelf shots are clean.
+
+**Inventory system.** Chose a **spreadsheet-as-source-of-truth**, not an app/DB —
+right scale for ~6–20 one-of-a-kind pieces, and keeps the site build-step-free.
+- `inventory.csv` (repo root) is the human-editable record — open in Excel locally,
+  or edit directly on GitHub.com from any device (CSV is editable in the GitHub web
+  UI; an `.xlsx` would not be — that drove the format choice).
+- `tools/sync_inventory.py` regenerates the `PRODUCTS` array in `index.html` from
+  the CSV. The "build step" is this script, run on demand by Claude — the site stays
+  one self-contained file. Fully automatic edit-→-site sync would need a GitHub
+  Action (deferred; breaks the no-build rule and needs sign-off).
+
+**Prices are DRAFT.** Jeff hasn't set prices; the displayed numbers are my
+estimates so the page is reviewable. Footer already says prices are indicative.
+Real prices go in `inventory.csv`.
+
+**P1 polish done without sign-off** (BUILD_PLAN item 3, not gated): favicon (inline
+SVG amethyst), Open Graph + Twitter share cards, and a generated `images/og-cover.jpg`.
+
+**Deploy path — interim GitHub Pages, not Vercel (decided 2026-06-18).** Jeff asked
+for a live product to review. Vercel deployment needs his interactive browser login
+(the CLI wasn't installed and `vercel login` can't be automated). The connected
+`gh` CLI (account `blakperlz`) let me push and enable **GitHub Pages** for an
+immediate public URL with no build step — same self-contained `index.html`.
+- Repo: `https://github.com/blakperlz/amethyst-showcase` (public).
+- The original GitHub→Vercel plan in `DEPLOY.md` still stands; Jeff connects Vercel
+  to this same repo when ready (it's a dashboard step). Pages can be turned off then.
+
 ## Reversibility note
-Nothing destructive was done. All work is new files in the project folder. The placeholder-generation script (`images/gen.py`) was left in place because a sandbox permission prevented deleting it — it is harmless and can be deleted manually.
+Nothing destructive was done locally. New this session: a public GitHub repo under
+`blakperlz` and a GitHub Pages site — both reversible (delete repo / disable Pages).
+Jeff authorized deployment explicitly ("just deploy already"). The site exposes only
+intended content (showcase + the already-public inquiry email). The placeholder
+generator (`images/gen.py`) remains, git-ignored.
