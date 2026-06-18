@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blakperlz Crystals — Amethyst Collection</title>
+<meta name="description" content="A curated collection of natural amethyst cathedral geodes and cave specimens. Each piece one of a kind." />
+<meta name="theme-color" content="#0e0a14" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='rgb(202,167,240)'/><stop offset='1' stop-color='rgb(125,82,184)'/></linearGradient></defs><path d='M8 5 h16 l5 8 -13 14 -13 -14 z' fill='url(%23g)' stroke='rgb(232,201,139)' stroke-width='1.3' stroke-linejoin='round'/></svg>" />
+
+<!-- Social share (Open Graph + Twitter) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blakperlz Crystals — Amethyst Collection" />
+<meta property="og:description" content="Hand-picked natural amethyst cathedral geodes and cave specimens. Every piece is one of a kind." />
+<meta property="og:url" content="https://blakperlz.github.io/amethyst-showcase/" />
+<meta property="og:image" content="https://blakperlz.github.io/amethyst-showcase/images/og-cover.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Blakperlz Crystals — Amethyst Collection" />
+<meta name="twitter:description" content="Hand-picked natural amethyst cathedral geodes and cave specimens. Every piece is one of a kind." />
+<meta name="twitter:image" content="https://blakperlz.github.io/amethyst-showcase/images/og-cover.jpg" />
+<style>
+  :root{
+    --bg:#0e0a14;
+    --bg-soft:#16101f;
+    --card:#1c1428;
+    --line:#2c2138;
+    --text:#f3eef8;
+    --muted:#b6a9c7;
+    --accent:#a974e0;
+    --accent-2:#caa7f0;
+    --gold:#e8c98b;
+    --radius:16px;
+    --max:1180px;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%,#2a1748 0%,transparent 60%),var(--bg);
+    color:var(--text);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(14,10,20,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.3px;font-size:1.15rem}
+  .brand .dot{width:14px;height:14px;border-radius:4px;
+    background:conic-gradient(from 200deg,var(--accent),var(--accent-2),var(--gold),var(--accent));
+    box-shadow:0 0 16px rgba(169,116,224,.7)}
+  .nav nav{display:flex;gap:28px;font-size:.95rem;color:var(--muted)}
+  .nav nav a:hover{color:var(--text)}
+  @media(max-width:640px){.nav nav{display:none}}
+
+  /* Hero */
+  .hero{padding:96px 0 64px;text-align:center;position:relative}
+  .eyebrow{color:var(--accent-2);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:.78rem}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.05;margin:18px 0;font-weight:800;
+    background:linear-gradient(120deg,#fff 20%,var(--accent-2) 60%,var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);max-width:620px;margin:0 auto;font-size:1.12rem}
+  .cta{display:inline-flex;gap:14px;margin-top:30px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:13px 26px;border-radius:999px;font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:.18s}
+  .btn-primary{background:linear-gradient(120deg,var(--accent),#7d52b8);color:#fff;box-shadow:0 8px 30px rgba(125,82,184,.45)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(125,82,184,.6)}
+  .btn-ghost{border-color:var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-2)}
+  .stats{display:flex;gap:40px;justify-content:center;margin-top:56px;flex-wrap:wrap}
+  .stat b{display:block;font-size:1.8rem;font-weight:800;color:#fff}
+  .stat span{color:var(--muted);font-size:.85rem;letter-spacing:.05em}
+
+  /* Section heading */
+  .sec{padding:64px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:800}
+  .sec-head p{color:var(--muted);max-width:520px}
+  .filters{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--bg-soft);
+    color:var(--muted);font-size:.85rem;cursor:pointer;transition:.15s}
+  .chip:hover{color:var(--text)}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;transition:.2s}
+  .card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  .card .imgwrap{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg-soft)}
+  .card img{width:100%;height:100%;object-fit:cover;transition:.4s}
+  .card:hover img{transform:scale(1.05)}
+  .tag{position:absolute;top:12px;left:12px;background:rgba(14,10,20,.82);backdrop-filter:blur(6px);
+    color:var(--accent-2);font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:5px 11px;border-radius:999px;
+    border:1px solid var(--line)}
+  .sold{position:absolute;top:12px;right:12px;background:#3a2230;color:#ffb0c8;font-size:.72rem;font-weight:700;
+    padding:5px 11px;border-radius:999px;border:1px solid #5a2f44}
+  .card .body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card h3{font-size:1.08rem;font-weight:700}
+  .card .meta{color:var(--muted);font-size:.86rem}
+  .card .desc{color:var(--muted);font-size:.88rem;flex:1}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+  .price{font-size:1.25rem;font-weight:800;color:var(--gold)}
+  .inquire{padding:9px 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:.85rem;font-weight:600;
+    cursor:pointer;border:none;transition:.15s}
+  .inquire:hover{background:var(--accent-2);color:#1c1428}
+  .inquire.disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
+
+  /* About */
+  .about{background:linear-gradient(180deg,transparent,var(--bg-soft));border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+  .about h2{font-size:clamp(1.6rem,3.5vw,2.3rem);margin-bottom:16px}
+  .about p{color:var(--muted);margin-bottom:14px}
+  .about ul{list-style:none;display:grid;gap:14px;margin-top:8px}
+  .about li{display:flex;gap:12px;color:var(--muted)}
+  .about li b{color:var(--text);display:block}
+  .about li .ic{color:var(--accent);font-size:1.2rem;line-height:1.4}
+
+  /* Contact */
+  .contact{text-align:center;padding:80px 0}
+  .contact h2{font-size:clamp(1.6rem,3.5vw,2.3rem);margin-bottom:12px}
+  .contact p{color:var(--muted);max-width:520px;margin:0 auto 26px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:.86rem}
+  .foot-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  .note{margin-top:14px;font-size:.78rem;color:#6f6383}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> Blakperlz Crystals</div>
+    <nav>
+      <a href="#collection">Collection</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="eyebrow">Natural Amethyst &middot; One of a Kind</div>
+  <h1>Hand-picked amethyst,<br>straight from the earth.</h1>
+  <p>A small, curated collection of natural amethyst cathedral geodes and cave specimens. Every piece is unique. When it's gone, it's gone.</p>
+  <div class="cta">
+    <a href="#collection" class="btn btn-primary">Browse the collection</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stat-count">8</b><span>SPECIMENS</span></div>
+    <div class="stat"><b>100%</b><span>NATURAL</span></div>
+    <div class="stat"><b>1 of 1</b><span>EVERY PIECE</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="collection">
+  <div class="sec-head">
+    <div>
+      <h2>The Collection</h2>
+      <p>Click <em>Inquire</em> on any piece to ask about price, shipping, or to request more photos.</p>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap sec about-grid">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>Sourced with care, sold one at a time</h2>
+      <p>Blakperlz Crystals is a personal collection of natural amethyst gathered for color, clarity, and character. This page is a showcase — a way to see what's currently available before reaching out.</p>
+      <p>Prefer to buy with a cart and checkout? A full online store is on the way. For now, the fastest way to claim a piece is to inquire directly.</p>
+    </div>
+    <ul>
+      <li><span class="ic">&#9670;</span><div><b>Authentic specimens</b>Natural amethyst, never dyed or synthetic.</div></li>
+      <li><span class="ic">&#9670;</span><div><b>One of a kind</b>What you see is the exact piece you receive.</div></li>
+      <li><span class="ic">&#9670;</span><div><b>Careful packing</b>Each specimen wrapped and boxed to arrive safely.</div></li>
+      <li><span class="ic">&#9670;</span><div><b>Direct &amp; personal</b>Questions answered by the collector, not a call center.</div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="contact wrap" id="contact">
+  <div class="eyebrow">Contact</div>
+  <h2>Found a piece you love?</h2>
+  <p>Send a note with the specimen name and I'll get back to you with price and shipping details.</p>
+  <a class="btn btn-primary" href="mailto:jeff.watson00@gmail.com?subject=Amethyst%20inquiry">Email Blakperlz Crystals</a>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand"><span class="dot"></span> Blakperlz Crystals</div>
+    <div>&copy; <span id="year"></span> Blakperlz Crystals · All specimens natural &amp; one of a kind</div>
+  </div>
+  <div class="wrap note">Showcase site — prices shown are indicative. Inquire to confirm availability and total with shipping.</div>
+</footer>
+
+<script>
+/* =====================================================================
+   EDIT YOUR INVENTORY HERE
+   ---------------------------------------------------------------------
+   - Each {} block is one specimen. Copy a block to add more.
+   - image: filename inside the /images folder. To use YOUR photo,
+     drop it in /images and point to it here (e.g. "images/my-photo.jpg").
+   - category: must match one of the filter chips (auto-built from these).
+   - sold: set to true to show a "SOLD" badge and disable Inquire.
+   - price: shown as-is. Use "" to hide the price entirely.
+   ===================================================================== */
+const PRODUCTS = [
+  { name:"Amethyst Cathedral \u2014 Calcite Point", category:"Cathedrals", image:"images/amethyst-01.jpg", dims:"~20.5\" tall", price:"$585", sold:false,
+    desc:"Tall cathedral geode with saturated grape-purple points and a single white calcite crystal set into the cave. Cut, stable base." },
+  { name:"Twin-Spire Cathedral", category:"Cathedrals", image:"images/amethyst-02.jpg", dims:"~18\" tall", price:"$520", sold:false,
+    desc:"Deep-color cathedral with a dramatic druzy interior and a bright calcite point near the center." },
+  { name:"Grape Cathedral", category:"Cathedrals", image:"images/amethyst-03.jpg", dims:"~16\" tall", price:"$445", sold:false,
+    desc:"Rich purple cathedral with tightly-packed points and a calcite accent toward the base." },
+  { name:"Calcite-Centered Cathedral", category:"Cathedrals", image:"images/amethyst-04.jpg", dims:"~22\" tall", price:"$640", sold:false,
+    desc:"Large statement cathedral, deep violet throughout, with a prominent calcite crystal at its heart." },
+  { name:"Lilac Cave Geode", category:"Geodes", image:"images/amethyst-05.jpg", dims:"~13\" tall", price:"$300", sold:false,
+    desc:"Open cave geode with soft lilac crystals and a polished black backing \u2014 display-ready." },
+  { name:"Deep Violet Cave Geode", category:"Geodes", image:"images/amethyst-06.jpg", dims:"~12\" tall", price:"$285", sold:false,
+    desc:"Compact cave geode carpeted in deep violet druzy with a calcite cluster at the base." },
+];
+const CONTACT_EMAIL = "jeff.watson00@gmail.com";
+/* ============================ end editable area ====================== */
+
+const grid = document.getElementById('grid');
+const filterBar = document.getElementById('filters');
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('stat-count').textContent = PRODUCTS.length;
+
+const cats = ["All", ...Array.from(new Set(PRODUCTS.map(p=>p.category)))];
+let active = "All";
+
+function render(){
+  grid.innerHTML = "";
+  PRODUCTS.filter(p => active==="All" || p.category===active).forEach(p=>{
+    const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Inquiry: "+p.name)}`
+      + `&body=${encodeURIComponent("Hi! I'm interested in the \""+p.name+"\". Is it still available, and what's the total with shipping?")}`;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="imgwrap">
+        <img src="${p.image}" alt="${p.name}" loading="lazy"
+             onerror="this.style.opacity=.4;this.alt='image missing'">
+        <span class="tag">${p.category}</span>
+        ${p.sold ? '<span class="sold">SOLD</span>' : ''}
+      </div>
+      <div class="body">
+        <h3>${p.name}</h3>
+        <div class="meta">${p.dims}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="foot">
+          <span class="price">${p.sold ? 'Sold' : (p.price||'')}</span>
+          ${p.sold
+            ? '<button class="inquire disabled" disabled>Unavailable</button>'
+            : `<a class="inquire" href="${mail}">Inquire</a>`}
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+cats.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='chip'+(c===active?' active':'');
+  b.textContent=c;
+  b.onclick=()=>{active=c;[...filterBar.children].forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};
+  filterBar.appendChild(b);
+});
+render();
+</script>
+</body>
+</html>

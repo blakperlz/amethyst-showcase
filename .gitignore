@@ -1,0 +1,27 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# Node (only if tooling is ever added)
+node_modules/
+npm-debug.log*
+
+# Vercel
+.vercel
+
+# Placeholder generator (not needed in the repo)
+images/gen.py
+
+# Raw photo originals & downloads — kept locally, not deployed
+images/_source/
+images/*.zip
+images/*.MOV
+images/*.mov
+images/IMG_*.JPG
+images/IMG_*.jpg
+images/IMG_*.PNG
+images/IMG_*.png
