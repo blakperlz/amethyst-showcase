@@ -7,7 +7,7 @@ A static, single-page website showcasing an amethyst crystal collection. It is a
 **proof-of-value showcase**, not a store. Buyers browse specimens and click
 **Inquire**, which opens a pre-filled email. Real e-commerce (Shopify) comes later.
 
-Owner: Jeff Watson · GitHub: `blakperlz` · Contact email: jeff.watson00@gmail.com
+Owner: Jeff Watson · GitHub: `blakperlz` · Contact email: jeff@silverocean.net
 
 ## Current state (as of 2026-06-17)
 - Fully working static page in `index.html`.

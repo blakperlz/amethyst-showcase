@@ -107,6 +107,40 @@
     border:1px solid var(--line)}
   .grade .gd{width:9px;height:9px;border-radius:50%;background:#e8462a;box-shadow:0 0 6px rgba(232,70,42,.7)}
   .grade .gl{color:var(--muted);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .num{position:absolute;bottom:12px;right:12px;background:rgba(14,10,20,.82);backdrop-filter:blur(6px);
+    color:var(--gold);font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:999px;
+    border:1px solid var(--line)}
+  .card .viewcue{color:var(--accent-2);font-size:.8rem;font-weight:600}
+
+  /* Detail lightbox */
+  .modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(8,5,12,.82);backdrop-filter:blur(7px);
+    display:none;align-items:center;justify-content:center;padding:24px}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);max-width:940px;width:100%;
+    max-height:90vh;overflow:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .modal-close{position:absolute;top:12px;right:14px;background:rgba(14,10,20,.72);border:1px solid var(--line);
+    color:var(--text);width:38px;height:38px;border-radius:50%;font-size:1.4rem;line-height:1;cursor:pointer;z-index:3}
+  .modal-close:hover{border-color:var(--accent);color:var(--accent-2)}
+  .modal-grid{display:grid;grid-template-columns:1.05fr .95fr}
+  @media(max-width:760px){.modal-grid{grid-template-columns:1fr}}
+  .gallery{background:var(--bg-soft);padding:18px;display:flex;flex-direction:column;gap:12px}
+  .gallery-main{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+  .gallery-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+  .gallery-thumbs img{width:62px;height:62px;object-fit:cover;border-radius:8px;border:1px solid var(--line);
+    cursor:pointer;opacity:.55;transition:.15s}
+  .gallery-thumbs img:hover{opacity:1}
+  .gallery-thumbs img.active{opacity:1;border-color:var(--accent)}
+  .modal-info{padding:30px 28px;display:flex;flex-direction:column;gap:14px}
+  .modal-info .eyebrow{color:var(--gold)}
+  .modal-info h3{font-size:1.6rem;font-weight:800;line-height:1.15}
+  .m-specs{display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0}
+  .m-specs .row{display:flex;justify-content:space-between;gap:16px;font-size:.9rem}
+  .m-specs .row span:first-child{color:var(--muted)}
+  .m-specs .dots{display:inline-flex;gap:4px;align-items:center}
+  .m-specs .dots i{width:9px;height:9px;border-radius:50%;background:#e8462a;display:inline-block}
+  .m-story{color:var(--muted);font-size:.99rem;line-height:1.75}
+  .m-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;padding-top:6px}
+  .m-foot .price{font-size:1.45rem}
   .card .body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
   .card h3{font-size:1.08rem;font-weight:700}
   .card .meta{color:var(--muted);font-size:.86rem}
@@ -200,7 +234,7 @@
   <div class="eyebrow">Contact</div>
   <h2>Found a piece you love?</h2>
   <p>Send a note with the specimen name and I'll get back to you with price and shipping details.</p>
-  <a class="btn btn-primary" href="mailto:jeff.watson00@gmail.com?subject=Amethyst%20inquiry">Email Crystal Atelier</a>
+  <a class="btn btn-primary" href="mailto:jeff@silverocean.net?subject=Amethyst%20inquiry">Email Crystal Atelier</a>
 </section>
 
 <footer>
@@ -211,42 +245,74 @@
   <div class="wrap note">Showcase site — prices shown are indicative. Inquire to confirm availability and total with shipping.</div>
 </footer>
 
+<!-- Detail lightbox (populated by JS) -->
+<div id="modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-name">
+    <button class="modal-close" id="m-close" aria-label="Close details">&times;</button>
+    <div class="modal-grid">
+      <div class="gallery">
+        <img class="gallery-main" id="m-main" src="" alt="" />
+        <div class="gallery-thumbs" id="m-thumbs"></div>
+      </div>
+      <div class="modal-info">
+        <div class="eyebrow" id="m-num"></div>
+        <h3 id="m-name"></h3>
+        <div class="m-specs" id="m-specs"></div>
+        <p class="m-story" id="m-story"></p>
+        <div class="m-foot">
+          <span class="price" id="m-price"></span>
+          <a class="inquire" id="m-inquire" href="#">Inquire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* =====================================================================
-   EDIT YOUR INVENTORY HERE
+   INVENTORY — do not edit this array by hand.
    ---------------------------------------------------------------------
-   - Each {} block is one specimen. Copy a block to add more.
-   - image: filename inside the /images folder. To use YOUR photo,
-     drop it in /images and point to it here (e.g. "images/my-photo.jpg").
-   - category: must match one of the filter chips (auto-built from these).
-   - sold: set to true to show a "SOLD" badge and disable Inquire.
-   - price: shown as-is. Use "" to hide the price entirely.
+   This PRODUCTS array is GENERATED from inventory.csv by
+   tools/sync_inventory.py. To change inventory: edit inventory.csv, then run
+       python tools/sync_inventory.py
+   - One entry = one physical piece. `images` may hold several photos (the
+     first is the card photo; all show in the detail lightbox).
+   - `num` renders a "No. N" badge; `grade` renders red-dot grade; `sold`
+     shows a SOLD badge and disables Inquire; blank `price` hides the price.
    ===================================================================== */
 const PRODUCTS = [
-  { name:"Amethyst Cathedral \u2014 Calcite Point", category:"Cathedrals", image:"images/amethyst-01.jpg", dims:"~20.5\" tall", price:"$585", sold:false, grade:null,
-    desc:"Tall cathedral geode with saturated grape-purple points and a single white calcite crystal set into the cave. Cut, stable base." },
-  { name:"Twin-Spire Cathedral", category:"Cathedrals", image:"images/amethyst-02.jpg", dims:"~18\" tall", price:"$520", sold:false, grade:null,
-    desc:"Deep-color cathedral with a dramatic druzy interior and a bright calcite point near the center." },
-  { name:"Grape Cathedral", category:"Cathedrals", image:"images/amethyst-03.jpg", dims:"~16\" tall", price:"$445", sold:false, grade:null,
-    desc:"Rich purple cathedral with tightly-packed points and a calcite accent toward the base." },
-  { name:"Calcite-Centered Cathedral", category:"Cathedrals", image:"images/amethyst-04.jpg", dims:"~22\" tall", price:"$640", sold:false, grade:null,
-    desc:"Large statement cathedral, deep violet throughout, with a prominent calcite crystal at its heart." },
-  { name:"Lilac Cave Geode", category:"Geodes", image:"images/amethyst-05.jpg", dims:"~13\" tall", price:"$300", sold:false, grade:null,
-    desc:"Open cave geode with soft lilac crystals and a polished black backing \u2014 display-ready." },
-  { name:"Deep Violet Cave Geode", category:"Geodes", image:"images/amethyst-06.jpg", dims:"~12\" tall", price:"$285", sold:false, grade:null,
-    desc:"Compact cave geode carpeted in deep violet druzy with a calcite cluster at the base." },
-  { name:"Banded Agate Cathedral", category:"Cathedrals", image:"images/amethyst-07.jpg", dims:"~10\" tall \u00b7 ~6.5 kg", price:"$240", sold:false, grade:3,
-    desc:"Gray-banded agate rim framing a sparkling smoky-to-amethyst cave with a pale druzy lining, on a cut black base." },
-  { name:"Grape Cave Cathedral", category:"Cathedrals", image:"images/amethyst-08.jpg", dims:"~11\" tall \u00b7 ~8.1 kg", price:"$265", sold:false, grade:3,
-    desc:"Grape-purple cathedral with a deep central cave of well-formed amethyst points, on a cut black base." },
-  { name:"Slender Spire Cathedral", category:"Cathedrals", image:"images/amethyst-09.jpg", dims:"~16.5\" tall \u00b7 ~11.4 kg", price:"$455", sold:false, grade:3,
-    desc:"Tall, slender cathedral with a graceful curved profile and soft lilac-to-violet druzy throughout." },
-  { name:"Statement Lilac Cathedral", category:"Cathedrals", image:"images/amethyst-10.jpg", dims:"~17.4 kg", price:"$450", sold:false, grade:3,
-    desc:"Large elongated cathedral with lavender druzy and a banded agate edge \u2014 a display centerpiece." },
-  { name:"Pale Lilac Cathedral", category:"Cathedrals", image:"images/amethyst-11.jpg", dims:"", price:"$340", sold:false, grade:3,
-    desc:"Tall amethyst cathedral with pale lilac crystals, a banded agate rim, and a cut black base." },
+  { num:"1", name:"Grand Calcite Cathedral", category:"Cathedrals", price:"$640", sold:false, grade:8,
+    height:"~20.5\" tall", weight:"",
+    images:["images/amethyst-01.jpg", "images/amethyst-02.jpg", "images/amethyst-03.jpg", "images/amethyst-04.jpg"],
+    blurb:"A towering deep-violet cathedral wrapped around a bright white calcite crystal.",
+    story:"The showpiece of the collection. Over twenty inches of densely packed, deep grape-violet points curve around a single luminous calcite crystal set deep in the cave. This is not a shelf accent \u2014 it is the piece a room arranges itself around. Stand it on the floor beside a fireplace, on a wide console, or in an entryway where daylight can travel into the cave and set the crystals alight. Hand-cut flat base; stands confidently on its own." },
+  { num:"2", name:"Slender Spire Cathedral", category:"Cathedrals", price:"$455", sold:false, grade:3,
+    height:"~16.5\" tall", weight:"~11.4 kg",
+    images:["images/amethyst-09.jpg"],
+    blurb:"A tall, graceful spire of lilac-to-violet druzy with a sculptural curved profile.",
+    story:"Sixteen and a half inches of elegant upward motion. The gently curved silhouette reads almost like carved sculpture, while the crystals shift from pale lilac at the edges to deep violet in the recesses \u2014 catching the eye from across a room. At 11.4 kg it has real heft and a stable cut base. Give it height to breathe on a console, mantel, or tall shelf and let it draw the eye upward." },
+  { num:"3", name:"Sculptural Lilac Cathedral", category:"Geodes", price:"$450", sold:false, grade:3,
+    height:"", weight:"~17.4 kg",
+    images:["images/amethyst-11.jpg", "images/amethyst-10.jpg"],
+    blurb:"A bold, wave-like lilac cathedral with a dramatic sweeping edge.",
+    story:"A heavyweight with attitude. Its sweeping, wave-like edge gives this lilac cathedral the presence of a piece of carved art, while pale amethyst druzy blankets a wide-open face that throws sparkle in every direction. At 17.4 kg this is a floor or wide-console centerpiece \u2014 the kind of specimen guests cross the room to touch. A confident anchor for a living room, studio, or gallery wall niche." },
+  { num:"4", name:"Lilac Mantel Cathedral", category:"Geodes", price:"$300", sold:false, grade:null,
+    height:"~13\" tall", weight:"",
+    images:["images/amethyst-05.jpg", "images/amethyst-06.jpg"],
+    blurb:"A clean, display-ready lilac cathedral finished on a polished black base.",
+    story:"Soft lilac crystals arch over an open cave, finished on a clean black base that makes it instantly display-ready \u2014 no stand, no fuss. At around thirteen inches it is the ideal mantel, bookshelf, or side-table statement: large enough to command attention, refined enough to live anywhere. Calcite accents glint near the base. The most effortlessly living-room-ready piece in the collection." },
+  { num:"5", name:"Grape Cave Cathedral", category:"Cathedrals", price:"$265", sold:false, grade:3,
+    height:"~11\" tall", weight:"~8.1 kg",
+    images:["images/amethyst-08.jpg"],
+    blurb:"Deep grape-purple points lining a generous central cave.",
+    story:"Rich, saturated grape-purple at its best \u2014 well-formed points crowd a deep central cave that pulls the eye straight in. At eleven inches and 8.1 kg it is an ideal bookshelf or console centerpiece: big enough to be the focal point of a shelf, light enough to move and restyle on a whim. Cut black base for confident standing. Pure color, no filler." },
+  { num:"6", name:"Banded Agate Cathedral", category:"Cathedrals", price:"$240", sold:false, grade:3,
+    height:"~10\" tall", weight:"~6.5 kg",
+    images:["images/amethyst-07.jpg"],
+    blurb:"A gray-banded agate rim framing a sparkling smoky-amethyst cave.",
+    story:"A connoisseur's piece. Concentric gray-blue agate banding frames a glittering smoky-to-amethyst interior, and the contrast does all the work. At ten inches and 6.5 kg it is a substantial desk, shelf, or nightstand companion \u2014 hefty enough to feel important in the hand, sized to sit comfortably anywhere. The quiet favorite for anyone who looks closely." },
 ];
-const CONTACT_EMAIL = "jeff.watson00@gmail.com";
+const CONTACT_EMAIL = "jeff@silverocean.net";
 /* ============================ end editable area ====================== */
 
 const grid = document.getElementById('grid');
@@ -254,38 +320,109 @@ const filterBar = document.getElementById('filters');
 document.getElementById('year').textContent = new Date().getFullYear();
 document.getElementById('stat-count').textContent = PRODUCTS.length;
 
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dotsHTML = n => '<span class="dots">' + '<i></i>'.repeat(n) + '</span>';
+const mailFor = p => `mailto:${CONTACT_EMAIL}?subject=`
+  + encodeURIComponent(`Inquiry: No. ${p.num} — ${p.name}`)
+  + `&body=` + encodeURIComponent(`Hi! I'm interested in "No. ${p.num} — ${p.name}". Is it still available, and what's the total with shipping?`);
+
 const cats = ["All", ...Array.from(new Set(PRODUCTS.map(p=>p.category)))];
 let active = "All";
 
 function render(){
   grid.innerHTML = "";
-  PRODUCTS.filter(p => active==="All" || p.category===active).forEach(p=>{
-    const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Inquiry: "+p.name)}`
-      + `&body=${encodeURIComponent("Hi! I'm interested in the \""+p.name+"\". Is it still available, and what's the total with shipping?")}`;
+  PRODUCTS.forEach((p, i) => {
+    if (active !== "All" && p.category !== active) return;
+    const meta = [p.height, p.weight].filter(Boolean).join(' · ');
     const card = document.createElement('div');
     card.className = 'card';
+    card.tabIndex = 0;
+    card.setAttribute('role','button');
+    card.setAttribute('aria-label', `View details for No. ${p.num}, ${p.name}`);
     card.innerHTML = `
       <div class="imgwrap">
-        <img src="${p.image}" alt="${p.name}" loading="lazy"
+        <img src="${esc(p.images[0])}" alt="${esc(p.name)}" loading="lazy"
              onerror="this.style.opacity=.4;this.alt='image missing'">
-        <span class="tag">${p.category}</span>
+        <span class="tag">${esc(p.category)}</span>
         ${p.sold ? '<span class="sold">SOLD</span>' : ''}
-        ${p.grade ? `<span class="grade" title="Grade: ${p.grade} (red-dot rating)"><span class="gl">Grade</span>${'<span class="gd"></span>'.repeat(p.grade)}</span>` : ''}
+        ${p.grade ? `<span class="grade" title="Grade ${p.grade} — red-dot rating"><span class="gl">Grade</span>${'<span class="gd"></span>'.repeat(p.grade)}</span>` : ''}
+        <span class="num">No. ${esc(p.num)}</span>
       </div>
       <div class="body">
-        <h3>${p.name}</h3>
-        <div class="meta">${p.dims}</div>
-        <div class="desc">${p.desc}</div>
+        <h3>${esc(p.name)}</h3>
+        <div class="meta">${esc(meta)}${p.images.length>1 ? ` · ${p.images.length} photos` : ''}</div>
+        <div class="desc">${esc(p.blurb)}</div>
         <div class="foot">
           <span class="price">${p.sold ? 'Sold' : (p.price||'')}</span>
-          ${p.sold
-            ? '<button class="inquire disabled" disabled>Unavailable</button>'
-            : `<a class="inquire" href="${mail}">Inquire</a>`}
+          <span class="viewcue">View details →</span>
         </div>
       </div>`;
+    const open = () => openModal(i);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
     grid.appendChild(card);
   });
 }
+
+/* ---- Detail lightbox ---- */
+const modal   = document.getElementById('modal');
+const mMain   = document.getElementById('m-main');
+const mThumbs = document.getElementById('m-thumbs');
+const mNum    = document.getElementById('m-num');
+const mName   = document.getElementById('m-name');
+const mSpecs  = document.getElementById('m-specs');
+const mStory  = document.getElementById('m-story');
+const mPrice  = document.getElementById('m-price');
+const mInq    = document.getElementById('m-inquire');
+
+function openModal(i){
+  const p = PRODUCTS[i];
+  mNum.textContent  = `No. ${p.num}`;
+  mName.textContent = p.name;
+  mStory.textContent = p.story || p.blurb || '';
+  mPrice.textContent = p.sold ? 'Sold' : (p.price || '');
+
+  // gallery
+  mMain.src = p.images[0]; mMain.alt = p.name;
+  mThumbs.innerHTML = '';
+  if (p.images.length > 1){
+    p.images.forEach((src, k) => {
+      const t = document.createElement('img');
+      t.src = src; t.alt = `${p.name} — photo ${k+1}`;
+      t.className = k === 0 ? 'active' : '';
+      t.addEventListener('click', () => {
+        mMain.src = src;
+        [...mThumbs.children].forEach(c => c.classList.remove('active'));
+        t.classList.add('active');
+      });
+      mThumbs.appendChild(t);
+    });
+  }
+
+  // specs
+  const rows = [['Piece', `No. ${p.num}`], ['Category', p.category]];
+  if (p.height) rows.push(['Height', p.height.replace('~','').replace(' tall','')]);
+  if (p.weight) rows.push(['Weight', p.weight.replace('~','')]);
+  if (p.grade)  rows.push(['Grade', `${dotsHTML(p.grade)}`]);
+  mSpecs.innerHTML = rows.map(([k,v]) => `<div class="row"><span>${esc(k)}</span><span>${v}</span></div>`).join('');
+
+  // inquire
+  if (p.sold){ mInq.classList.add('disabled'); mInq.removeAttribute('href'); mInq.textContent = 'Unavailable'; }
+  else { mInq.classList.remove('disabled'); mInq.href = mailFor(p); mInq.textContent = 'Inquire'; }
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.getElementById('m-close').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
 cats.forEach(c=>{
   const b=document.createElement('button');
   b.className='chip'+(c===active?' active':'');

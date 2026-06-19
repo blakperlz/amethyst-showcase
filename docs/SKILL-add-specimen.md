@@ -6,19 +6,32 @@ photos) to this site. Written so it can be promoted into a formal Claude skill l
 ## Repo shape (what to know before touching anything)
 - `index.html` — the ENTIRE site (HTML + CSS + JS inline). No framework, no build step,
   no npm. Must open by double-click and deploy static.
-- Inventory **source of truth = `inventory.csv`** (repo root). Columns:
-  `id, name, category, height_in, weight_kg, price, status, photo, description, grade`
+- Inventory **source of truth = `inventory.csv`** (repo root). **One row = one physical
+  piece** (NOT one photo). Columns:
+  `id, number, name, category, height_in, weight_kg, price, status, photos, grade, blurb, story`
+  - `id`: stable internal id (e.g. `piece-01`), not shown on the site.
+  - `number`: display number → renders a "No. N" badge on the card.
   - `price`: number → rendered `$N`; blank → no price shown.
   - `status`: `Available` (default) or `Sold` (`Sold` disables Inquire).
   - `height_in` (inches) / `weight_kg` (kilograms): numbers, either may be blank;
     formatted into the meta line as `~N" tall · ~N kg`.
-  - `grade`: integer count of red-dot stickers on the specimen → renders a grade badge
-    (N red dots) on the card. Blank → no badge.
+  - `photos`: **one or more** image paths separated by `|` (pipe). First = card/primary
+    photo; all appear in the detail lightbox gallery. Group multiple angles of the SAME
+    piece here rather than making separate rows.
+  - `grade`: integer count of red-dot stickers → grade badge (N red dots). Blank → none.
+  - `blurb`: short one-line teaser on the card.
+  - `story`: longer evocative description shown in the detail lightbox; frame the piece's
+    *role* by its real size (desk/shelf → mantel → console → room-dominating floor piece).
 - `tools/sync_inventory.py` — regenerates the `PRODUCTS = [...]` array in `index.html`
   from the CSV. **Never hand-edit the array; edit the CSV and run the script.**
 - `images/` — specimen photos `amethyst-0N.jpg`, square ~1200 px, <300 KB, EXIF-oriented.
+- **Cards are clickable** → open an in-page detail lightbox (gallery + specs + story +
+  Inquire). It's a modal in `index.html`'s inline JS; keeps the single-file/no-build rule.
 - Categories (filter chips) are derived automatically from each row's `category`.
 - `.gitignore` ignores raw `IMG_*`, `*.zip`, `*.MOV`, and `images/_source/`.
+- **Watch for duplicates:** multiple photos may be the SAME rock from different angles
+  (tell-tales: recurring calcite cluster, same label/dot pattern, consecutive IMG #s).
+  Group them under one row's `photos`; don't create a separate piece per photo.
 
 ## Procedure
 1. **Confirm the repo.** Title/brand should read "Crystal Atelier"; `inventory.csv` +

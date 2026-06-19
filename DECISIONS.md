@@ -149,3 +149,47 @@ tree is not evidence it's unlinked; the link lives in the Vercel dashboard). Pus
 paths are now live and current:
 - **Vercel (production):** https://amethyst-showcase.vercel.app
 - **GitHub Pages:** https://blakperlz.github.io/amethyst-showcase/
+
+## De-duplicate, number, multi-photo + detail lightbox (decided 2026-06-19)
+
+Jeff updated the contact email and flagged that the catalog had duplicates ("several
+pics for one image"). Reviewed all 11 photos and confirmed with Jeff: they are really
+**6 physical pieces**, several shot from multiple angles. Major restructure:
+
+**Contact email** changed to **jeff@silverocean.net** across the site (`CONTACT_EMAIL`
+const + the contact button; Inquire links are generated from the const) and the
+`CLAUDE.md` owner line. Left `DECISIONS.md`'s 2026-06-17 reference to
+`jeff.watson00@gmail.com` unchanged — that's a historical note about which *Google
+Drive* account to share with, not contact info.
+
+**One piece = one entry, with multiple photos (schema change).** `inventory.csv` now
+has `id, number, name, category, height_in, weight_kg, price, status, photos, grade,
+blurb, story`. `photos` holds pipe-separated paths (first = card photo, rest = gallery).
+The 11 rows collapsed to **6** confirmed pieces:
+1. Grand Calcite Cathedral — photos 01+02+03+04 (deep-purple, white calcite); grade **8**
+   (counted from the dot stickers — these originals DO have red dots, ~8; earlier they
+   were left ungraded). Height ~20.5"; weight unknown (originals never had a kg tag).
+2. Slender Spire Cathedral — photo 09 (16.5"/11.4 kg, grade 3).
+3. Sculptural Lilac Cathedral — photos 11+10 (17.4 kg, grade 3).
+4. Lilac Mantel Cathedral — photos 05+06 (~13"; no red dots → no grade).
+5. Grape Cave Cathedral — photo 08 (11"/8.1 kg, grade 3).
+6. Banded Agate Cathedral — photo 07 (10"/6.5 kg, grade 3).
+
+**Numbering + labeling.** Per Jeff: keep descriptive names **and** add a numbered badge.
+Cards show a "No. N" badge (bottom-right) plus the existing category/grade badges.
+
+**Clickable detail lightbox (new feature).** Each card opens an in-page modal (not a
+separate page — keeps the single-file, no-build architecture). The lightbox shows a photo
+gallery (all angles, thumbnail switching), a spec list (piece no., category, height,
+weight, grade dots), the full evocative description, price, and an Inquire button.
+Keyboard-accessible (Enter/Space to open, Esc/outside-click/× to close).
+
+**Selling copy rewritten.** Every piece has a short `blurb` (card) and a longer `story`
+(lightbox) that frames its *role* by actual size — desk/shelf companion (No. 6) →
+mantel/bookshelf statement (No. 4, 5) → tall console statement (No. 2) → room-dominating
+floor centerpiece (No. 1, 3) — written to make the viewer want it.
+
+**Specimen count** is now an accurate **6** (hero stat is derived from the array).
+
+**Sync script updated** to emit `num`, `images[]`, `height`, `weight`, `grade`, `blurb`,
+`story`. Still CSV-driven, single self-contained `index.html`, no build step.
