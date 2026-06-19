@@ -41,6 +41,13 @@ photos) to this site. Written so it can be promoted into a formal Claude skill l
 7. **Write/append** a short PRD and a `DECISIONS.md` entry (what + why).
 8. **Stage only** (`git add` the specific files). **Do NOT commit/push/deploy without
    Jeff's explicit "proceed"** (CLAUDE.md working agreement #4).
+9. **Deploy = push to `main`.** Both Vercel (project `amethyst-showcase`, team
+   SilverCrowz) and GitHub Pages auto-deploy from `main`. There's no local Vercel
+   CLI/token and no `.vercel/` dir — that's expected; the GitHub→Vercel link lives in
+   the Vercel dashboard, so a push to `main` is the deploy. Pages serves from `main`
+   too, so if work is on a branch (e.g. `rename/crystal-atelier`), fast-forward `main`
+   to it before pushing. Live URLs: https://amethyst-showcase.vercel.app and
+   https://blakperlz.github.io/amethyst-showcase/.
 
 ## Gotchas learned (2026-06-19 batch)
 - **The handwritten tag numbers on the rocks are weights in KG, not prices** — they

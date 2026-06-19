@@ -139,3 +139,13 @@ keep them for now; they're drop-in replaceable later (same filenames). Crop unch
 **Reversibility.** All changes additive/forward (new images, new CSV rows, two additive
 schema columns, a CSS/JS badge). The `weight_lb`→`weight_kg` rename is safe because no
 prior weight values existed. Committed, pushed, and deployed per explicit go-ahead.
+
+**Deploy correction — Vercel IS connected now.** The earlier (2026-06-18) note that
+Vercel wasn't set up is outdated. The repo is linked to a Vercel project
+**`amethyst-showcase`** (team **SilverCrowz**) that **auto-deploys on every push to
+`main`** — no CLI/token needed locally (the absence of a `.vercel/` dir in the working
+tree is not evidence it's unlinked; the link lives in the Vercel dashboard). Pushing
+`main` (commit `952b24d`) triggered a production deploy automatically. Both deploy
+paths are now live and current:
+- **Vercel (production):** https://amethyst-showcase.vercel.app
+- **GitHub Pages:** https://blakperlz.github.io/amethyst-showcase/
