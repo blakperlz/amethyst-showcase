@@ -102,6 +102,11 @@
     border:1px solid var(--line)}
   .sold{position:absolute;top:12px;right:12px;background:#3a2230;color:#ffb0c8;font-size:.72rem;font-weight:700;
     padding:5px 11px;border-radius:999px;border:1px solid #5a2f44}
+  .grade{position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:5px;
+    background:rgba(14,10,20,.82);backdrop-filter:blur(6px);padding:5px 10px;border-radius:999px;
+    border:1px solid var(--line)}
+  .grade .gd{width:9px;height:9px;border-radius:50%;background:#e8462a;box-shadow:0 0 6px rgba(232,70,42,.7)}
+  .grade .gl{color:var(--muted);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
   .card .body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
   .card h3{font-size:1.08rem;font-weight:700}
   .card .meta{color:var(--muted);font-size:.86rem}
@@ -218,18 +223,28 @@
    - price: shown as-is. Use "" to hide the price entirely.
    ===================================================================== */
 const PRODUCTS = [
-  { name:"Amethyst Cathedral \u2014 Calcite Point", category:"Cathedrals", image:"images/amethyst-01.jpg", dims:"~20.5\" tall", price:"$585", sold:false,
+  { name:"Amethyst Cathedral \u2014 Calcite Point", category:"Cathedrals", image:"images/amethyst-01.jpg", dims:"~20.5\" tall", price:"$585", sold:false, grade:null,
     desc:"Tall cathedral geode with saturated grape-purple points and a single white calcite crystal set into the cave. Cut, stable base." },
-  { name:"Twin-Spire Cathedral", category:"Cathedrals", image:"images/amethyst-02.jpg", dims:"~18\" tall", price:"$520", sold:false,
+  { name:"Twin-Spire Cathedral", category:"Cathedrals", image:"images/amethyst-02.jpg", dims:"~18\" tall", price:"$520", sold:false, grade:null,
     desc:"Deep-color cathedral with a dramatic druzy interior and a bright calcite point near the center." },
-  { name:"Grape Cathedral", category:"Cathedrals", image:"images/amethyst-03.jpg", dims:"~16\" tall", price:"$445", sold:false,
+  { name:"Grape Cathedral", category:"Cathedrals", image:"images/amethyst-03.jpg", dims:"~16\" tall", price:"$445", sold:false, grade:null,
     desc:"Rich purple cathedral with tightly-packed points and a calcite accent toward the base." },
-  { name:"Calcite-Centered Cathedral", category:"Cathedrals", image:"images/amethyst-04.jpg", dims:"~22\" tall", price:"$640", sold:false,
+  { name:"Calcite-Centered Cathedral", category:"Cathedrals", image:"images/amethyst-04.jpg", dims:"~22\" tall", price:"$640", sold:false, grade:null,
     desc:"Large statement cathedral, deep violet throughout, with a prominent calcite crystal at its heart." },
-  { name:"Lilac Cave Geode", category:"Geodes", image:"images/amethyst-05.jpg", dims:"~13\" tall", price:"$300", sold:false,
+  { name:"Lilac Cave Geode", category:"Geodes", image:"images/amethyst-05.jpg", dims:"~13\" tall", price:"$300", sold:false, grade:null,
     desc:"Open cave geode with soft lilac crystals and a polished black backing \u2014 display-ready." },
-  { name:"Deep Violet Cave Geode", category:"Geodes", image:"images/amethyst-06.jpg", dims:"~12\" tall", price:"$285", sold:false,
+  { name:"Deep Violet Cave Geode", category:"Geodes", image:"images/amethyst-06.jpg", dims:"~12\" tall", price:"$285", sold:false, grade:null,
     desc:"Compact cave geode carpeted in deep violet druzy with a calcite cluster at the base." },
+  { name:"Banded Agate Cathedral", category:"Cathedrals", image:"images/amethyst-07.jpg", dims:"~10\" tall \u00b7 ~6.5 kg", price:"$240", sold:false, grade:3,
+    desc:"Gray-banded agate rim framing a sparkling smoky-to-amethyst cave with a pale druzy lining, on a cut black base." },
+  { name:"Grape Cave Cathedral", category:"Cathedrals", image:"images/amethyst-08.jpg", dims:"~11\" tall \u00b7 ~8.1 kg", price:"$265", sold:false, grade:3,
+    desc:"Grape-purple cathedral with a deep central cave of well-formed amethyst points, on a cut black base." },
+  { name:"Slender Spire Cathedral", category:"Cathedrals", image:"images/amethyst-09.jpg", dims:"~16.5\" tall \u00b7 ~11.4 kg", price:"$455", sold:false, grade:3,
+    desc:"Tall, slender cathedral with a graceful curved profile and soft lilac-to-violet druzy throughout." },
+  { name:"Statement Lilac Cathedral", category:"Cathedrals", image:"images/amethyst-10.jpg", dims:"~17.4 kg", price:"$450", sold:false, grade:3,
+    desc:"Large elongated cathedral with lavender druzy and a banded agate edge \u2014 a display centerpiece." },
+  { name:"Pale Lilac Cathedral", category:"Cathedrals", image:"images/amethyst-11.jpg", dims:"", price:"$340", sold:false, grade:3,
+    desc:"Tall amethyst cathedral with pale lilac crystals, a banded agate rim, and a cut black base." },
 ];
 const CONTACT_EMAIL = "jeff.watson00@gmail.com";
 /* ============================ end editable area ====================== */
@@ -255,6 +270,7 @@ function render(){
              onerror="this.style.opacity=.4;this.alt='image missing'">
         <span class="tag">${p.category}</span>
         ${p.sold ? '<span class="sold">SOLD</span>' : ''}
+        ${p.grade ? `<span class="grade" title="Grade: ${p.grade} (red-dot rating)"><span class="gl">Grade</span>${'<span class="gd"></span>'.repeat(p.grade)}</span>` : ''}
       </div>
       <div class="body">
         <h3>${p.name}</h3>

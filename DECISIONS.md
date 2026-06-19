@@ -104,3 +104,38 @@ Nothing destructive was done locally. New this session: a public GitHub repo und
 Jeff authorized deployment explicitly ("just deploy already"). The site exposes only
 intended content (showcase + the already-public inquiry email). The placeholder
 generator (`images/gen.py`) remains, git-ignored.
+
+## Added 5 more cathedrals (decided 2026-06-19, shipped)
+Jeff supplied 5 new specimen photos. Processed them through the existing pipeline
+(`exif_transpose` → top-biased square crop → 1200 px → JPEG <300 KB) into
+`images/amethyst-07..11.jpg`, appended 5 rows to `inventory.csv`, and regenerated
+`PRODUCTS` via `tools/sync_inventory.py` (now 11 specimens). Full plan and per-photo
+mapping in `PRD-2026-06-19-add-5-cathedrals.md`; reusable procedure in
+`docs/SKILL-add-specimen.md`. Jeff reviewed and signed off ("proceed… commit, push, deploy").
+
+**Weights are kilograms (schema change).** The on-rock tag numbers
+(6.50/8.10/11.40/17.40) are kg, not prices — Jeff confirmed. Renamed the CSV column
+`weight_lb` → `weight_kg` and the sync formatter now prints `~N kg`. No numeric
+conversion was needed: the 5 new specimens' tag numbers were already kg, and the
+existing 6 specimens had **no** weight data (the column was blank for all of them), so
+there was nothing to convert. amethyst-11's tag was only partially legible, so its
+weight is left blank.
+
+**Prices remain DRAFT.** Jeff will set real prices directly in `inventory.csv` later
+(then re-run the sync). Footer already states prices are indicative.
+
+**Grade column + badge added (schema change).** The red-dot stickers are the grade.
+Added a `grade` column to `inventory.csv` and a grade badge to the card (N red dots,
+bottom-left, with a "Grade" label and a `title` tooltip). Counts were read precisely
+from each photo (zoomed crops + verification) — **all five specimens have exactly 3
+red dots**, so grade = 3 for 07–11. The existing 6 have no red-dot data and show no
+badge (grade blank → `grade:null` → hidden).
+
+**Photos kept as-is.** Same supplier-photo characteristics as the existing 4 (red dots,
+handwritten tags, iPhone-Measure ruler overlays, cluttered backgrounds). Jeff chose to
+keep them for now; they're drop-in replaceable later (same filenames). Crop unchanged
+(top-biased square, matching the existing pieces).
+
+**Reversibility.** All changes additive/forward (new images, new CSV rows, two additive
+schema columns, a CSS/JS badge). The `weight_lb`→`weight_kg` rename is safe because no
+prior weight values existed. Committed, pushed, and deployed per explicit go-ahead.

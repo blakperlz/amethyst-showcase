@@ -10,10 +10,12 @@ right on GitHub.com). After changing it, run:
 …then preview index.html and commit. The website stays a single self-contained
 file with no build step; this script is the only "sync" and you run it on demand.
 
-CSV columns: id, name, category, height_in, weight_lb, price, status, photo, description
+CSV columns: id, name, category, height_in, weight_kg, price, status, photo, description, grade
   - price:  a number (e.g. 585) -> shown as "$585".  Leave blank -> no price shown.
   - status: "Available" (default) or "Sold".  "Sold" disables the Inquire button.
-  - height_in / weight_lb: numbers; formatted into the dimension line. Either may be blank.
+  - height_in / weight_kg: numbers; formatted into the dimension line. Either may be blank.
+  - grade:  integer count of red-dot stickers on the specimen -> shown as a grade badge.
+            Leave blank -> no badge.
 """
 import csv, json, re, sys
 from pathlib import Path
@@ -26,12 +28,22 @@ HTML = ROOT / "index.html"
 def fmt_dims(row):
     parts = []
     h = (row.get("height_in") or "").strip()
-    w = (row.get("weight_lb") or "").strip()
+    w = (row.get("weight_kg") or "").strip()
     if h:
         parts.append(f'~{h}" tall')
     if w:
-        parts.append(f"~{w} lb")
+        parts.append(f"~{w} kg")
     return " · ".join(parts)
+
+
+def fmt_grade(row):
+    g = (row.get("grade") or "").strip()
+    if not g:
+        return "null"
+    try:
+        return str(int(float(g)))
+    except ValueError:
+        return "null"
 
 
 def fmt_price(row):
@@ -55,7 +67,8 @@ def main():
             f"image:{json.dumps(r['photo'].strip())}, "
             f"dims:{json.dumps(fmt_dims(r))}, "
             f"price:{json.dumps(fmt_price(r))}, "
-            f"sold:{'true' if sold else 'false'},\n"
+            f"sold:{'true' if sold else 'false'}, "
+            f"grade:{fmt_grade(r)},\n"
             f"    desc:{json.dumps(r['description'].strip())} }},"
         )
         lines.append(obj)

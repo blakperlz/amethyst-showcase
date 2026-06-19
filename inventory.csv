@@ -1,7 +1,12 @@
-id,name,category,height_in,weight_lb,price,status,photo,description
-amethyst-01,Amethyst Cathedral — Calcite Point,Cathedrals,20.5,,585,Available,images/amethyst-01.jpg,"Tall cathedral geode with saturated grape-purple points and a single white calcite crystal set into the cave. Cut, stable base."
-amethyst-02,Twin-Spire Cathedral,Cathedrals,18,,520,Available,images/amethyst-02.jpg,"Deep-color cathedral with a dramatic druzy interior and a bright calcite point near the center."
-amethyst-03,Grape Cathedral,Cathedrals,16,,445,Available,images/amethyst-03.jpg,"Rich purple cathedral with tightly-packed points and a calcite accent toward the base."
-amethyst-04,Calcite-Centered Cathedral,Cathedrals,22,,640,Available,images/amethyst-04.jpg,"Large statement cathedral, deep violet throughout, with a prominent calcite crystal at its heart."
-amethyst-05,Lilac Cave Geode,Geodes,13,,300,Available,images/amethyst-05.jpg,"Open cave geode with soft lilac crystals and a polished black backing — display-ready."
-amethyst-06,Deep Violet Cave Geode,Geodes,12,,285,Available,images/amethyst-06.jpg,"Compact cave geode carpeted in deep violet druzy with a calcite cluster at the base."
+id,name,category,height_in,weight_kg,price,status,photo,description,grade
+amethyst-01,Amethyst Cathedral — Calcite Point,Cathedrals,20.5,,585,Available,images/amethyst-01.jpg,"Tall cathedral geode with saturated grape-purple points and a single white calcite crystal set into the cave. Cut, stable base.",
+amethyst-02,Twin-Spire Cathedral,Cathedrals,18,,520,Available,images/amethyst-02.jpg,"Deep-color cathedral with a dramatic druzy interior and a bright calcite point near the center.",
+amethyst-03,Grape Cathedral,Cathedrals,16,,445,Available,images/amethyst-03.jpg,"Rich purple cathedral with tightly-packed points and a calcite accent toward the base.",
+amethyst-04,Calcite-Centered Cathedral,Cathedrals,22,,640,Available,images/amethyst-04.jpg,"Large statement cathedral, deep violet throughout, with a prominent calcite crystal at its heart.",
+amethyst-05,Lilac Cave Geode,Geodes,13,,300,Available,images/amethyst-05.jpg,"Open cave geode with soft lilac crystals and a polished black backing — display-ready.",
+amethyst-06,Deep Violet Cave Geode,Geodes,12,,285,Available,images/amethyst-06.jpg,"Compact cave geode carpeted in deep violet druzy with a calcite cluster at the base.",
+amethyst-07,Banded Agate Cathedral,Cathedrals,10,6.5,240,Available,images/amethyst-07.jpg,"Gray-banded agate rim framing a sparkling smoky-to-amethyst cave with a pale druzy lining, on a cut black base.",3
+amethyst-08,Grape Cave Cathedral,Cathedrals,11,8.1,265,Available,images/amethyst-08.jpg,"Grape-purple cathedral with a deep central cave of well-formed amethyst points, on a cut black base.",3
+amethyst-09,Slender Spire Cathedral,Cathedrals,16.5,11.4,455,Available,images/amethyst-09.jpg,"Tall, slender cathedral with a graceful curved profile and soft lilac-to-violet druzy throughout.",3
+amethyst-10,Statement Lilac Cathedral,Cathedrals,,17.4,450,Available,images/amethyst-10.jpg,"Large elongated cathedral with lavender druzy and a banded agate edge — a display centerpiece.",3
+amethyst-11,Pale Lilac Cathedral,Cathedrals,,,340,Available,images/amethyst-11.jpg,"Tall amethyst cathedral with pale lilac crystals, a banded agate rim, and a cut black base.",3
